@@ -24,3 +24,10 @@ https://code.visualstudio.com/ からVSCodeをインストール
 HashiCorp Terraform を入れておく
 
 Terraform Provider for SakuraCloudは、VM作成時にインストールするので、事前インストールはいらない。
+
+### TerraformでVM作成のドキュメント
+| ドキュメント | 説明 |
+|---|---|
+| [AWS LightsailでVM作成](aws/Terraform-AWS-README.md) | Terraformを使って、AWS LighsailでVMを作成する資料 |
+| [さくらのクラウドでVM作成](sakura/Terraform-Sakura-README.md) | Terraformを使って、さくらのクラウドで最小構成のVMを作成する資料 |
+
