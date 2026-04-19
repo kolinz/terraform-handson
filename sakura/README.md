@@ -1,0 +1,186 @@
+# さくらのクラウド Webサーバ (Terraform)
+
+## 構成概要
+
+| 項目 | 設定値 |
+|------|--------|
+| ゾーン | is1b（石狩第2） |
+| CPU | 1コア |
+| メモリ | 1GB |
+| OS | Ubuntu 24.04 LTS |
+| ディスク | SSD 20GB |
+| ネットワーク | 共有グローバルIP |
+| Webサーバ | Nginx（自動インストール） |
+
+## ファイル構成
+
+| 要作成 | 自動生成 | ファイル | 説明 |
+|:---:|:---:|---|---|
+| | | `main.tf` | メインのTerraformコード。サーバ・ディスク・SSHキー・パケットフィルタを定義 |
+| | | `variables.tf` | 変数の定義。ゾーン・サーバ名・パスワード・タグ |
+| | | `outputs.tf` | `terraform apply` 完了後に表示される出力値（IPアドレス・SSH接続コマンド等） |
+| | | `terraform.tfvars.example` | 変数の設定例。コピーして `terraform.tfvars` として使用する |
+| ✅ | | `terraform.tfvars` | 実際の変数値を記載するファイル（Gitに含めないこと） |
+| | ✅ | `web-server.pem` | SSH秘密鍵（`terraform apply` 時に自動生成。Gitに含めないこと） |
+| | ✅ | `.terraform/` | プロバイダのバイナリ等（`terraform init` で自動生成。Gitに含めないこと） |
+| | ✅ | `terraform.tfstate` | Terraformが管理するインフラの状態ファイル（自動生成。Gitに含めないこと） |
+
+## 事前準備
+
+### 1. SSH秘密鍵について
+
+SSHキーペアは `terraform apply` 時に **さくらのクラウド側で自動生成** されます。
+生成された秘密鍵は `web-server.pem` としてこのディレクトリに自動保存されます。
+
+> ⚠️ `web-server.pem` は再取得できません。`terraform destroy` 前に必ずバックアップしてください。
+
+### 2. APIキーの設定（環境変数推奨）
+
+#### APIキーの作成手順
+
+1. ブラウザで以下のURLを開く
+   `https://secure.sakura.ad.jp/cloud/#/apikeys`
+
+2. 「APIキーを追加」をクリック
+
+3. 以下の通り設定して「作成」をクリック
+
+   | 項目 | 設定値 |
+   |---|---|
+   | APIキーの種類 | リソース操作APIキー |
+   | APIキー名 | Terraform（任意） |
+   | アクセスレベル | 作成・削除 |
+   | サービスへのアクセス権 | チェックなし |
+
+4. 作成後の画面に **アクセストークン** と **アクセストークンシークレット** が表示される
+   > ⚠️ アクセストークンシークレットはこの画面でしか確認できません。必ずコピーしてください。
+
+#### 環境変数にセット
+
+さくらのクラウド コントロールパネル → **APIキー** からトークンを発行し、環境変数にセットします。
+
+**PowerShell（VSCode ターミナル）**
+```powershell
+$env:SAKURACLOUD_ACCESS_TOKEN = "your-access-token"
+$env:SAKURACLOUD_ACCESS_TOKEN_SECRET = "your-secret"
+```
+
+**Git Bash / macOS・Linux**
+```bash
+export SAKURACLOUD_ACCESS_TOKEN="your-access-token"
+export SAKURACLOUD_ACCESS_TOKEN_SECRET="your-secret"
+```
+
+### 3. tfvars の準備
+
+**PowerShell**
+```powershell
+Copy-Item terraform.tfvars.example terraform.tfvars
+# server_password を必ず変更する（緊急時のコンソールログイン用）
+```
+
+**Git Bash / macOS・Linux**
+```bash
+cp terraform.tfvars.example terraform.tfvars
+```
+
+## デプロイ手順
+
+`terraform` コマンド自体はOS問わず共通です。
+
+```powershell
+# 初期化
+terraform init
+
+# 実行計画の確認
+terraform plan
+
+# 適用（完了後にIPアドレスとSSHコマンドが表示されます）
+terraform apply
+
+# SSH接続確認
+ssh -i web-server.pem ubuntu@<表示されたIPアドレス>
+```
+
+SSH接続後、以下を実行してNginxをインストールしてください。
+
+```bash
+sudo apt update
+sudo apt install nginx
+```
+
+VMから離脱するには `exit` を実行してください。
+
+```bash
+exit
+```
+
+`terraform apply` 実行時に以下の確認プロンプトが表示されます。`yes` と入力してEnterを押してください（`y` だけでは受け付けられません）。
+
+```
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+```
+
+## 削除
+
+```powershell
+# ⚠️ 実行前に web-server.pem をバックアップすること
+terraform destroy
+```
+
+`terraform destroy` でも同様に `yes` の入力が求められます。
+
+## 作成されるリソース
+
+- `sakuracloud_server` : サーバ本体
+- `sakuracloud_disk` : SSDディスク（Ubuntu 24.04）
+- `sakuracloud_ssh_key_gen` : SSHキーペア（自動生成）
+- `sakuracloud_note` : スタートアップスクリプト（Nginx導入）
+- `sakuracloud_packet_filter` : パケットフィルタ（22/80/443のみ許可）
+- `local_sensitive_file` : SSH秘密鍵（.pem）をローカル保存
+
+## Windows での SSH 接続補足
+
+`terraform apply` 完了後、Windowsでは秘密鍵のパーミッション設定が必要です。
+これをしないと `Permissions are too open` エラーが出て接続できません。
+
+```powershell
+icacls web-server.pem /inheritance:r /grant:r "$($env:USERNAME):(R)"
+```
+
+設定後、以下のコマンドで接続できます：
+
+```powershell
+ssh -i web-server.pem ubuntu@<サーバのIPアドレス>
+```
+
+初回接続時は以下のメッセージが表示されます。`yes` と入力してEnterを押してください（ホスト鍵が `known_hosts` に登録されます）。
+
+```
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+```
+
+## VM内で sudo を実行した際のパスワードについて
+
+`sudo apt install` などの実行時にパスワードを求められた場合は、`terraform.tfvars` の `server_password` に設定した値を入力してください。
+
+```
+# terraform.tfvars
+server_password = "YourStr0ngPassw0rd!"  # ← これ
+```
+
+## ⚠️ SSH接続時に "REMOTE HOST IDENTIFICATION HAS CHANGED" が出た場合
+
+`terraform destroy` → `terraform apply` でサーバを作り直すと、同じIPアドレスに異なるホスト鍵のサーバが割り当てられることがあります。その場合、`known_hosts` に残った古いホスト鍵と一致せずエラーになります。
+
+以下のコマンドで古いエントリを削除してください：
+
+```powershell
+ssh-keygen -R <サーバのIPアドレス>
+```
+
+削除後に再接続すると `Are you sure you want to continue connecting (yes/no)?` と聞かれるので `yes` と入力してください。

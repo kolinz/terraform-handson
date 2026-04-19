@@ -1,0 +1,7 @@
+# このファイルを terraform.tfvars にコピーして使用してください
+# APIキーは環境変数推奨（下記参照）
+
+zone            = "is1b"
+server_name     = "web-server"
+server_password = "YourStr0ngPassw0rd!"   # 変更必須
+tags            = ["web", "nginx", "terraform"]
