@@ -1,30 +1,4 @@
-# Windows環境で、VSCodeを使って、TerraformでAWS Lightsail上でVM起動のハンズオン資料
-# インストール
-## Windows用ソフトウェアパッケージマネージャー Chocolatey 
-### 理者権限でPowerShellを起動
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-
-## Terraform
-### 理者権限でPowerShellを起動
-choco install terraform
-
-Do you want to run the script?([Y]es/[A]ll - yes to all/[N]o/[P]rint): Y
-
-## AWS CLI
-### 理者権限でPowerShellを起動
-choco install awscli
-
-Do you want to run the script?([Y]es/[A]ll - yes to all/[N]o/[P]rint): Y
-
-## Visual Studio Code のインストール
-https://code.visualstudio.com/ からVSCodeをインストール
-
-## Visual Studio Code 拡張機能 のインストール
-HashiCorp Terraform を入れておく
-
-Terraform Provider for SakuraCloudは、VM作成時にインストールするので、事前インストールはいらない。
-
-# 作業
+# TerraformでAWS Lightsailに仮想マシンをつくる手順
 ## AWS環境変数の設定
 ### PowerShell で実行
 aws configure
