@@ -116,7 +116,7 @@ export SAKURACLOUD_ACCESS_TOKEN_SECRET="your-secret"
 ### 3. tfvars の準備
 terraform.tfvars内の値は、ハンズオンではとりあえず良いものの、基本的には server_password を必ず変更する（緊急時のコンソールログイン用）
 
-**PowerShell**
+**Visual Studio Codeのターミナル(PowerShell）**
 ```powershell
 Copy-Item terraform.tfvars.example terraform.tfvars
 ```
@@ -157,27 +157,7 @@ VM作成（完了後にIPアドレスとSSHコマンドが表示されます）
 ```
 terraform apply
 ```
-
-SSH接続確認
-```
-ssh -i web-server.pem ubuntu@<表示されたIPアドレス>
-```
-
-SSH接続後、以下を実行してNginxをインストールしてください。
-
-```
-sudo apt update
-sudo apt install nginx
-```
-
-VMから離脱するには `exit` を実行してください。
-
-```
-exit
-```
-
 `terraform apply` 実行時に以下の確認プロンプトが表示されます。`yes` と入力してEnterを押してください（`y` だけでは受け付けられません）。
-
 ```
 Do you want to perform these actions?
   Terraform will perform the actions described above.
@@ -186,36 +166,10 @@ Do you want to perform these actions?
   Enter a value: yes
 ```
 
-## 削除
-⚠️ 実行前に web-server.pem をバックアップすること
+SSH接続確認
 ```
-terraform destroy
+ssh -i web-server.pem ubuntu@<表示されたIPアドレス>
 ```
-
-`terraform destroy` でも同様に `yes` の入力が求められます。
-
-## 作成されるリソース
-
-- `sakuracloud_server` : サーバ本体
-- `sakuracloud_disk` : SSDディスク（Ubuntu 24.04）
-- `sakuracloud_ssh_key_gen` : SSHキーペア（自動生成）
-- `sakuracloud_note` : スタートアップスクリプト（Nginx導入）
-- `sakuracloud_packet_filter` : パケットフィルタ（22/80/443のみ許可）
-- `local_sensitive_file` : SSH秘密鍵（.pem）をローカル保存
-
-## Windows での SSH 接続補足
-
-`terraform apply` 完了後、Windowsでは秘密鍵のパーミッション設定が必要です。
-これをしないと `Permissions are too open` エラーが出て接続できません。
-```
-icacls web-server.pem /inheritance:r /grant:r "$($env:USERNAME):(R)"
-```
-
-設定後、以下のコマンドで接続できます：
-```
-ssh -i web-server.pem ubuntu@<サーバのIPアドレス>
-```
-
 例 ssh -i web-server.pem ubuntu@153.127.199.137
 
 初回接続時は以下のメッセージが表示されます。`yes` と入力してEnterを押してください（ホスト鍵が `known_hosts` に登録されます）。
@@ -239,10 +193,34 @@ Description:    Ubuntu 22.04.5 LTS
 Release:        22.04
 Codename:       jammy
 ```
-VMから抜ける
+
+以下を実行してNginxをインストールしてください。
+```
+sudo apt update
+sudo apt install nginx
+```
+
+VMから離脱するには `exit` を実行してください。
 ```
 exit
 ```
+
+## VM削除
+⚠️ 実行前に web-server.pem をバックアップすること
+```
+terraform destroy
+```
+
+`terraform destroy` でも同様に `yes` の入力が求められます。
+
+## 作成されるリソース
+
+- `sakuracloud_server` : サーバ本体
+- `sakuracloud_disk` : SSDディスク（Ubuntu 24.04）
+- `sakuracloud_ssh_key_gen` : SSHキーペア（自動生成）
+- `sakuracloud_note` : スタートアップスクリプト（Nginx導入）
+- `sakuracloud_packet_filter` : パケットフィルタ（22/80/443のみ許可）
+- `local_sensitive_file` : SSH秘密鍵（.pem）をローカル保存
 
 ## VM内で sudo を実行した際のパスワードについて
 
