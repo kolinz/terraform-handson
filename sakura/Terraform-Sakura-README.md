@@ -1,3 +1,5 @@
+[トップに戻る](https://github.com/kolinz/terraform-handson/blob/main/README.md)
+ | [AWS版を見る](https://github.com/kolinz/terraform-handson/blob/main/aws/Terraform-AWS-README.md)
 # Terraformで、さくらのクラウドに仮想マシンをつくる手順
 
 ## テンプレートのダウンロードとVisual Studio Codeでの読み込み
