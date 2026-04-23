@@ -13,27 +13,36 @@
 ### 1. 必要なソフトウェアのインストール
 #### 1-1. Windows用ソフトウェアパッケージマネージャー Chocolatey 
 ##### 管理者権限でPowerShellを起動
+```
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+```
 
 #### 1-2. Terraformのインストール
 ##### 管理者権限でPowerShellを起動
+```
 choco install terraform
-
+```
+下記を聞かれるので、Y を入れてEnterキーを押す
+```
 Do you want to run the script?([Y]es/[A]ll - yes to all/[N]o/[P]rint): Y
+```
 
 #### 1-3. AWS CLIのインストール
 ##### 管理者権限でPowerShellを起動
+```
 choco install awscli
-
+```
+下記を聞かれるので、Y を入れてEnterキーを押す
+```
 Do you want to run the script?([Y]es/[A]ll - yes to all/[N]o/[P]rint): Y
+```
 
 #### 1-4. Visual Studio Code のインストール
 https://code.visualstudio.com/ からVSCodeをインストール
 
 #### 1-5. Visual Studio Code 拡張機能 のインストール
-HashiCorp Terraform を入れておく
-
-Terraform Provider for SakuraCloudは、VM作成時にインストールするので、事前インストールはいらない。
+- HashiCorp Terraform を入れておく
+- Terraform Provider for さくらのクラウド は、VM作成時にインストールするので、事前インストールはいらない。
 
 ### 2. TerraformでVM作成のハンズオン資料
 | ドキュメント | 説明 |
