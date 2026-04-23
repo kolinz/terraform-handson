@@ -12,7 +12,8 @@
 6. 「次へ」をクリックします。
 7. 「アクセスキーを作成」をクリックします。
 8. 「.csvファイルをダウンロード」をクリックします。
-9. ダウンロードしたCSVファイルを開きます。Access key ID と Secret Access Key が記載されています。
+9. 「完了」をクリックします。
+11. ダウンロードしたCSVファイルを開きます。Access key ID と Secret Access Key が記載されています。
 
 ### PowerShell 
 ```
@@ -23,7 +24,19 @@ Default region name [None]: ap-northeast-1
 Default output format [None]: 空欄でOK
 ```
 
-## bluepintIDを調べる
+## Lightsail用のカスタムSSHキーを作成する
+1. Webブラウザ上でLightsailにアクセスします（ https://ap-northeast-1.lightsail.aws.amazon.com/ls/webapp/home/instances ）。
+2. 「インスタンスの作成」をクリックします。
+3. 少し下に画面をスクロールしまして、「カスタムキーを作成」をクリックします。
+4. 「リージョンの選択」と表示されるので、「作成」をクリックします。
+5. 「新規 SSH キーペアの作成」と表示されるので、半角英数字でキーペア名を入力（例 niigatalightsail）します。
+6. 「キーペアの作成」をクリックします。
+7. 「キーペアが作成されました!」が表示されます。
+8. 「プライベートキーのダウンロード」をクリックします。
+9. PCに、.pem ファイルがダウンロードされていることを確認します。
+10. ダウンロードの有無を確認後、ダウンロードできていれば「成功しました」をクリックします。
+
+## LightsailのbluepintIDを調べる
 ### PowerShell で実行
 ```
 aws lightsail get-blueprints --region ap-northeast-1 --query 'blueprints[].{blueprintId:blueprintId,name:name,group:group,productUrl:productUrl,platform:platform}' --output table
