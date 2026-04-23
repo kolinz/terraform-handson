@@ -1,7 +1,8 @@
 # TerraformによるIaCハンズオン
 ## Terrformについて
-- [Terraform](https://www.ibm.com/jp-ja/think/topics/terraform)はコードでインフラを定義・管理できるIaCツールです。クラウドのVM・ネットワーク・ファイアウォールなどをコマンド一つで構築・削除できます。スタートアップスクリプトと組み合わせることで、VM作成後に必要なソフトウェアを自動インストールすることも可能です。
+- [Terraform](https://developer.hashicorp.com/terraform)はコードでインフラを定義・管理できるIaCツールです。クラウドのVM・ネットワーク・ファイアウォールなどをコマンド一つで構築・削除できます。スタートアップスクリプトと組み合わせることで、VM作成後に必要なソフトウェアを自動インストールすることも可能です。
 - インフラをコードで管理するため、同じ環境を何度でも再現できます。手作業によるミスを防ぎ、構成をGitで履歴管理できます。また `terraform destroy` で作成したリソースをまとめて削除できるため、検証環境の使い捨てにも便利です。
+- 2025年2月、Terraformを開発・提供しているHashiCorpを、IBMが買収しました。Terraformと並んで著名なIaCツールである「Ansible」や「OpenShift」「Red Hat Enterprise Linux」を提供するRed Hat社をIBMは2019年7月に買収済みです。
 
 ## IaCについて
 
