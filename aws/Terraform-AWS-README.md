@@ -1,5 +1,19 @@
-# TerraformでAWS Lightsailに仮想マシンをつくる手順
+<img width="196" height="26" alt="image" src="https://github.com/user-attachments/assets/4ecea659-4a74-4342-8eb7-4e070f02575d" /># TerraformでAWS Lightsailに仮想マシンをつくる手順
 ## AWS環境変数の設定
+### IAMのポリシーの確認
+- AWS管理者は、IAMユーザーグループ内の許可ポリシーにおいて作成済みのポリシーに、Lightsailが含まれることを確認してください。含まれていない場合は、Lightsailを追加してください。
+
+### アクセスキーIDとシークレットアクセスキーの取得
+1. AWS Management Consoleにアクセスし、ログインします。
+2. 画面右上のユーザーをクリックし、表示される「セキュリティ認証情報」をクリックします。
+3. 「アクセスキーを作成」をクリックします。
+4. 「ユースケース」で、「コマンドラインインタフェース（CLI）」を選びます。
+5. 「上記のレコメンデーションを理解し、アクセスキーを作成します。」にチェックを入れます。
+6. 「次へ」をクリックします。
+7. 「アクセスキーを作成」をクリックします。
+8. 「.csvファイルをダウンロード」をクリックします。
+9. ダウンロードしたCSVファイルを開きます。Access key ID と Secret Access Key が記載されています。
+
 ### PowerShell 
 ```
 aws configure
