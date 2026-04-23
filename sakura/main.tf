@@ -2,7 +2,7 @@ terraform {
   required_providers {
     sakuracloud = {
       source  = "sacloud/sakuracloud"
-      version = "2.26"
+      version = "2.35.0"
     }
     tls = {
       source  = "hashicorp/tls"
@@ -46,10 +46,10 @@ resource "sakuracloud_ssh_key" "web" {
 }
 
 # ─────────────────────────────────────────
-# ディスク（Ubuntu 22.04）
+# ディスク（Ubuntu 24.04）
 # ─────────────────────────────────────────
 data "sakuracloud_archive" "ubuntu" {
-  os_type = "ubuntu2204"
+  os_type = "ubuntu2404"
 }
 
 resource "sakuracloud_disk" "web" {
