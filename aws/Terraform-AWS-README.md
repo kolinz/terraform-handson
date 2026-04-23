@@ -2,6 +2,8 @@
 
 ## テンプレートのダウンロードとVisual Studio Codeでの読み込み
 ### テンプレートのダウンロード
+すでにダウンロード済みの場合は飛ばしてください。
+
 git cloneが使える人は、git clone を使ってください。下記をZIP形式でダウンロードした場合です。
 
 1. https://github.com/kolinz/terraform-handson/archive/refs/heads/main.zip にアクセスし、本ハンズオン用のTerraform定義ファイルをダウンロードします。
