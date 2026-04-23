@@ -242,3 +242,7 @@ ssh-keygen -R <サーバのIPアドレス>
 ```
 
 削除後に再接続すると `Are you sure you want to continue connecting (yes/no)?` と聞かれるので `yes` と入力してください。
+
+# 関連資料
+Terraform for さくらのクラウド
+https://manual.sakura.ad.jp/cloud/tool/terraform/index.html
