@@ -189,21 +189,29 @@ ubuntu@web-server:~$ lsb_release -a
 ```
 No LSB modules are available.
 Distributor ID: Ubuntu
-Description:    Ubuntu 22.04.5 LTS
-Release:        22.04
-Codename:       jammy
-```
-
-以下を実行してNginxをインストールしてください。
-```
-sudo apt update
-sudo apt install nginx
+Description:    Ubuntu 24.04.4 LTS
+Release:        24.04
+Codename:       noble
 ```
 
 VMから離脱するには `exit` を実行してください。
 ```
 exit
 ```
+
+今回のTerraformの定義ファイル（[main.tf](main.tf)）では、スタートアップスクリプトを仕込んだので、VM作成時にスタートアップスクリプトが起動し、Webサーバーを構築するNginxが自動インストールされます。
+Webブラウザで、`http://terraform applyで表示されたIPアドレス (例 http://153.127.199.xxx) `にアクセスします。
+```
+Welcome to nginx!
+If you see this page, the nginx web server is successfully installed and working. Further configuration is required.
+
+For online documentation and support please refer to nginx.org.
+Commercial support is available at nginx.com.
+
+Thank you for using nginx.
+```
+と表示されます。
+
 
 ## VM削除
 ⚠️ 実行前に web-server.pem をバックアップすること
@@ -242,6 +250,25 @@ ssh-keygen -R <サーバのIPアドレス>
 ```
 
 削除後に再接続すると `Are you sure you want to continue connecting (yes/no)?` と聞かれるので `yes` と入力してください。
+
+## ⚠️ Error: Failed to load plugin schemas のようなエラーが起きる場合
+
+下記のようなエラーメッセージの場合
+```
+│
+│ Error while loading schemas for plugin components: Failed to obtain provider schema: Could not load the schema for
+│ provider registry.terraform.io/sacloud/sakuracloud: failed to retrieve schema from provider
+│ "registry.terraform.io/sacloud/sakuracloud": Plugin did not respond: The plugin encountered an error, and failed to
+│ respond to the plugin.(*GRPCProvider).GetProviderSchema call. The plugin logs may contain more details...
+```
+次のコマンドを実行し、再実行してみてください。
+```                                                          
+Remove-Item -Recurse -Force .terraform
+Remove-Item -Force .terraform.lock.hcl
+terraform init
+terraform plan
+terraform apply
+```
 
 # 関連資料
 Terraform for さくらのクラウド
