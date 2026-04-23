@@ -1,4 +1,21 @@
-# さくらのクラウド Webサーバ (Terraform)
+# Terraformで、さくらのクラウドに仮想マシンをつくる手順
+
+## テンプレートのダウンロードとVisual Studio Codeでの読み込み
+### テンプレートのダウンロード
+git cloneが使える人は、git clone を使ってください。下記をZIP形式でダウンロードした場合です。
+
+1. https://github.com/kolinz/terraform-handson/archive/refs/heads/main.zip にアクセスし、本ハンズオン用のTerraform定義ファイルをダウンロードします。
+2. terraform-handson-main.zipがダウンロードされます。
+3. terraform-handson-main.zipを解凍（例 ダウンロードフォルダで、terraform-handson-main.zipを選び、すべて展開 >> 展開をクリック）
+4. terraform-handson-main フォルダができます。
+
+### Visual Studio Codeの起動
+1. terraform-handson-main フォルダをダブルクリックします。
+2. 同名のterraform-handson-main フォルダを右クリックして、「Codeで開く」をクリックします。
+3. Visual Studioが起動し、「このフォルダー内のファイルの作成者を信頼しますか?」と表示されます。
+4. 「はい、作成者を信頼します。」をクリックします。
+5. Visual Studio Codeが起動し、画面左側に「aws」フォルダと「sakura」フォルダがあることが確認できます。
+6. 「sakura」フォルダをダブルクリックし、「Terraform-Sakura-README.md」をクリックして画面中央部分に表示します。「Terraform-Sakura-README.md」はAWS さくらのクラウドで、Terraformを使う際の手順がかかれているファイルです。
 
 ## 構成概要
 
