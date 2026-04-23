@@ -114,11 +114,11 @@ export SAKURACLOUD_ACCESS_TOKEN_SECRET="your-secret"
 ```
 
 ### 3. tfvars の準備
+terraform.tfvars内の値は、ハンズオンではとりあえず良いものの、基本的には server_password を必ず変更する（緊急時のコンソールログイン用）
 
 **PowerShell**
 ```powershell
 Copy-Item terraform.tfvars.example terraform.tfvars
-# server_password を必ず変更する（緊急時のコンソールログイン用）
 ```
 
 **Git Bash / macOS・Linux**
@@ -130,30 +130,49 @@ cp terraform.tfvars.example terraform.tfvars
 
 `terraform` コマンド自体はOS問わず共通です。
 
-```powershell
-# 初期化
+初期化の実行
+```
 terraform init
+```
 
-# 実行計画の確認
+実行結果例
+```
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+```
+
+実行計画の確認
+```
 terraform plan
+```
 
-# 適用（完了後にIPアドレスとSSHコマンドが表示されます）
+VM作成（完了後にIPアドレスとSSHコマンドが表示されます）
+```
 terraform apply
+```
 
-# SSH接続確認
+SSH接続確認
+```
 ssh -i web-server.pem ubuntu@<表示されたIPアドレス>
 ```
 
 SSH接続後、以下を実行してNginxをインストールしてください。
 
-```bash
+```
 sudo apt update
 sudo apt install nginx
 ```
 
 VMから離脱するには `exit` を実行してください。
 
-```bash
+```
 exit
 ```
 
@@ -168,9 +187,8 @@ Do you want to perform these actions?
 ```
 
 ## 削除
-
-```powershell
-# ⚠️ 実行前に web-server.pem をバックアップすること
+⚠️ 実行前に web-server.pem をバックアップすること
+```
 terraform destroy
 ```
 
@@ -189,19 +207,16 @@ terraform destroy
 
 `terraform apply` 完了後、Windowsでは秘密鍵のパーミッション設定が必要です。
 これをしないと `Permissions are too open` エラーが出て接続できません。
-
-```powershell
+```
 icacls web-server.pem /inheritance:r /grant:r "$($env:USERNAME):(R)"
 ```
 
 設定後、以下のコマンドで接続できます：
-
-```powershell
+```
 ssh -i web-server.pem ubuntu@<サーバのIPアドレス>
 ```
 
 初回接続時は以下のメッセージが表示されます。`yes` と入力してEnterを押してください（ホスト鍵が `known_hosts` に登録されます）。
-
 ```
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 ```
@@ -221,7 +236,7 @@ server_password = "YourStr0ngPassw0rd!"  # ← これ
 
 以下のコマンドで古いエントリを削除してください：
 
-```powershell
+```
 ssh-keygen -R <サーバのIPアドレス>
 ```
 
