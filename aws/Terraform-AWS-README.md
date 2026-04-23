@@ -254,8 +254,10 @@ ssh -i my-lightsail-vm-key.pem ubuntu@52.195.96.254
 ```
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes を入力してEnterキーを押す
 
-下記のように表示されれば、AWS Lightsaill上のVMに接続。
+下記のように表示されれば、VMに接続完了。
+```
 ubuntu@ip-172-26-14-235:~$ 　
+```
 
 VM上でコマンドを実行してみる
 ```
