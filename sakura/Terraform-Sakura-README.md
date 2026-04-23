@@ -216,9 +216,32 @@ icacls web-server.pem /inheritance:r /grant:r "$($env:USERNAME):(R)"
 ssh -i web-server.pem ubuntu@<サーバのIPアドレス>
 ```
 
+例 ssh -i web-server.pem ubuntu@153.127.199.137
+
 初回接続時は以下のメッセージが表示されます。`yes` と入力してEnterを押してください（ホスト鍵が `known_hosts` に登録されます）。
 ```
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+```
+
+下記のように表示されれば、VMに接続完了。
+```
+ubuntu@web-server:~$ 　
+```
+VM上でコマンドを実行してみる
+```
+ubuntu@web-server:~$ lsb_release -a
+```
+実行結果例
+```
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 22.04.5 LTS
+Release:        22.04
+Codename:       jammy
+```
+VMから抜ける
+```
+exit
 ```
 
 ## VM内で sudo を実行した際のパスワードについて
