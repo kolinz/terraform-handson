@@ -1,4 +1,22 @@
-<img width="196" height="26" alt="image" src="https://github.com/user-attachments/assets/4ecea659-4a74-4342-8eb7-4e070f02575d" /># TerraformでAWS Lightsailに仮想マシンをつくる手順
+# TerraformでAWS Lightsailに仮想マシンをつくる手順
+
+## テンプレートのダウンロードとVisual Studio Codeでの読み込み
+### テンプレートのダウンロード
+git cloneが使える人は、git clone を使ってください。下記をZIP形式でダウンロードした場合です。
+
+1. https://github.com/kolinz/terraform-handson/archive/refs/heads/main.zip にアクセスし、本ハンズオン用のTerraform定義ファイルをダウンロードします。
+2. terraform-handson-main.zipがダウンロードされます。
+3. terraform-handson-main.zipを解凍（例 ダウンロードフォルダで、terraform-handson-main.zipを選び、すべて展開 >> 展開をクリック）
+4. terraform-handson-main フォルダができます。
+
+### Visual Studio Codeの起動
+1. terraform-handson-main フォルダをダブルクリックします。
+2. 同名のterraform-handson-main フォルダを右クリックして、「Codeで開く」をクリックします。
+3. Visual Studioが起動し、「このフォルダー内のファイルの作成者を信頼しますか?」と表示されます。
+4. 「はい、作成者を信頼します。」をクリックします。
+5. Visual Studio Codeが起動し、
+
+
 ## AWS環境変数の設定
 ### IAMのポリシーの確認
 - AWS管理者は、IAMユーザーグループ内の許可ポリシーにおいて作成済みのポリシーに、Lightsailが含まれることを確認してください。含まれていない場合は、Lightsailを追加してください。
