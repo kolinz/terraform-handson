@@ -1,6 +1,13 @@
 # TerraformによるIaCハンズオン
+## Terrformについて
+- Terraformはコードでインフラを定義・管理できるIaCツールです。クラウドのVM・ネットワーク・ファイアウォールなどをコマンド一つで構築・削除できます。スタートアップスクリプトと組み合わせることで、VM作成後に必要なソフトウェアを自動インストールすることも可能です。
+- インフラをコードで管理するため、同じ環境を何度でも再現できます。手作業によるミスを防ぎ、構成をGitで履歴管理できます。また `terraform destroy` で作成したリソースをまとめて削除できるため、検証環境の使い捨てにも便利です。
 
-## ハンズオンは、Windows環境で、VSCodeを使って、TerraformでAWS Lightsailやさくらのクラウド上でVM起動を行う。
+## IaCについて
+
+<img src="docs/IaC-slide.png" width="90%" />
+
+## ハンズオンは、Windows環境で、VSCode（Visual Studio Code）を使って、TerraformでAWS Lightsailやさくらのクラウド上でVM起動を行う。
 
 ### 1. 必要なソフトウェアのインストール
 #### 1-1. Windows用ソフトウェアパッケージマネージャー Chocolatey 
