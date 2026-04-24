@@ -1,5 +1,4 @@
-[トップに戻る](https://github.com/kolinz/terraform-handson/blob/main/README.md)
- | [AWS版を見る](https://github.com/kolinz/terraform-handson/blob/main/aws/Terraform-AWS-README.md)
+[AWS版を見る](https://github.com/kolinz/terraform-handson/blob/main/aws/Terraform-AWS-README.md)
  | [さくらのクラウド版を見る](https://github.com/kolinz/terraform-handson/blob/main/sakura/Terraform-Sakura-README.md)
  
 # TerraformによるIaCハンズオン
