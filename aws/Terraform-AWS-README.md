@@ -1,4 +1,4 @@
-[トップに戻る](https://github.com/kolinz/terraform-handson/blob/main/README.md)
+[トップに戻る](https://github.com/kolinz/terraform-handson/)
  | [さくらのクラウド版を見る](https://github.com/kolinz/terraform-handson/blob/main/sakura/Terraform-Sakura-README.md)
 # TerraformでAWS Lightsailに仮想マシンをつくる手順
 
