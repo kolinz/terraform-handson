@@ -1,4 +1,4 @@
-[トップに戻る](https://github.com/kolinz/terraform-handson/blob/main/README.md)
+[トップに戻る](https://github.com/kolinz/terraform-handson/)
  | [AWS版を見る](https://github.com/kolinz/terraform-handson/blob/main/aws/Terraform-AWS-README.md)
 # Terraformで、さくらのクラウドに仮想マシンをつくる手順
 
